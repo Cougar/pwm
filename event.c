@@ -303,6 +303,15 @@ static void handle_configure_request(XConfigureRequestEvent *ev)
 }
 	   
 
+static void autoraise_handler()
+{
+	if(wglobal.current_winobj==NULL)
+		return;
+	reset_timer();
+	raise_winobj(wglobal.current_winobj);
+}
+
+
 static void handle_enter_window(XEvent *ev)
 {
 	XEnterWindowEvent *eev=&(ev->xcrossing);
@@ -331,10 +340,9 @@ static void handle_enter_window(XEvent *ev)
 #endif
 	
 	if(eev->window==eev->root){
-		if(!eev->same_screen)
-			thing=(WThing*)wglobal.current_winobj;
-		else
+		if(eev->mode==NotifyInferior || wglobal.current_winobj==NULL)
 			return;
+		thing=(WThing*)wglobal.current_winobj;
 	}else{
 		thing=find_thing(eev->window);
 
@@ -348,6 +356,14 @@ static void handle_enter_window(XEvent *ev)
 	}
 	
 	do_set_focus(thing);
+
+	if(wglobal.current_winobj==NULL)
+		return;
+	if(CF_AUTORAISE_TIME==0){
+		raise_winobj(wglobal.current_winobj);
+	}else if(CF_AUTORAISE_TIME>0){
+		set_timer(CF_AUTORAISE_TIME, autoraise_handler);
+	}
 }
 
 

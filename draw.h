@@ -44,6 +44,8 @@ typedef struct _WGRData{
 	WColorGroup act_base_colors, act_sel_colors;
 	WColorGroup tab_colors, tab_sel_colors;
 	WColorGroup base_colors, sel_colors;
+
+	int autoraise_time;
 	
 	/* other data */
 	int bar_height;

@@ -752,6 +752,22 @@ err:
 }
 
 
+static bool opt_screen_autoraise_time(Tokenizer *tokz, int n, Token *toks)
+{
+	int i=TOK_LONG_VAL(&(toks[1]));
+
+	if(tmp_screen==NULL)
+		return TRUE;
+
+	if(i<0)
+		i=-1;
+
+	GRDATA->autoraise_time=i;
+
+	return TRUE;
+}
+
+
 static bool begin_screen(Tokenizer *tokz, int n, Token *toks)
 {	
 	int i;
@@ -958,6 +974,7 @@ static ConfOpt screen_opts[]={
 	{"workspaces", "l?l", opt_screen_workspaces, NULL},
 	{"opaque_move", "l", opt_screen_opaque_move, NULL},
 	{"dock", "s?i+", opt_screen_dock, NULL},
+	{"autoraise_time", "l", opt_screen_autoraise_time, NULL},
 	
 	{"#end", NULL, end_screen, NULL},
 	{"#cancel", NULL, end_screen, NULL},

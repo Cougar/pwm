@@ -124,6 +124,11 @@ Configuring screens:
 		# this percentage of screen space are moved opaquely).
 		# Default is 100 - all moves are opaque.
 		opaque_move <percentage>
+
+		# This is time in milliseconds after which duration of focus,
+		# focused window will be raised automatically.
+		# Use -1 or let it undefined to avoid this feature.
+		autoraise_time <ms>
 	}
 
 

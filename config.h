@@ -95,6 +95,7 @@
 #define CF_BAR_MAX_WIDTH_Q (GRDATA->bar_max_width_q)
 #define CF_TAB_MIN_WIDTH (GRDATA->tab_min_width)
 
+#define	CF_AUTORAISE_TIME (GRDATA->autoraise_time)
 
 /* Drawing
  */
