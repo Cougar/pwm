@@ -1025,8 +1025,9 @@ bool read_config(const char* cfgfile)
 	if(cfgfile==NULL){
 		cfgfile=getenv("HOME");
 		if(cfgfile!=NULL){
-			tmp=ALLOC_N(char, strlen(cfgfile)+strlen(CF_USER_CFGFILE)+2);
-			sprintf(tmp, "%s/%s", cfgfile, CF_USER_CFGFILE);
+			int tmp_len=strlen(cfgfile)+strlen(CF_USER_CFGFILE)+2;
+			tmp=ALLOC_N(char, tmp_len);
+			snprintf(tmp, tmp_len, "%s/%s", cfgfile, CF_USER_CFGFILE);
 			cfgfile=tmp;
 		}
 		

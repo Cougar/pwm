@@ -167,7 +167,7 @@ static bool winlist_menudata_init(WMenuData *data, WThing *context)
 	WFrame *frame;
 	int ws;
 	WClientWin *cwin;
-	int nents, l, i=0;
+	int nents, length, entryname_length, i=0;
 	const char *winname;
 	char *entryname;
 	
@@ -201,9 +201,9 @@ static bool winlist_menudata_init(WMenuData *data, WThing *context)
 				continue;
 			   
 			winname=clientwin_full_label(cwin);
-			l=32+strlen(winname);
+			length=32+strlen(winname);
 			
-			entryname=ALLOC_N(char, l);
+			entryname=ALLOC_N(char, length);
 			
 			if(entryname==NULL){
 				warn_err();
@@ -211,18 +211,19 @@ static bool winlist_menudata_init(WMenuData *data, WThing *context)
 				return FALSE;
 			}
 			
-
-			
 			if(ws>=0){
-				sprintf(entryname+0, "%d%c", ws+1,
-						(cwin==frame->current_cwin ? '+' : '-'));
+				entryname_length=snprintf(entryname+0, length, "%d%c", ws+1,
+										  (cwin==frame->current_cwin
+										   ? '+' : '-'));
 			}else{
-				sprintf(entryname+0, "%c%c",
-						(ws==WORKSPACE_STICKY ? '*' : '?'),
-						(cwin==frame->current_cwin ? '+' : '-'));
+				entryname_length=snprintf(entryname+0, length, "%c%c",
+										  (ws==WORKSPACE_STICKY ? '*' : '?'),
+										  (cwin==frame->current_cwin
+										   ? '+' : '-'));
 			}
-			
-			sprintf(entryname+strlen(entryname), "  %s", winname);
+
+			snprintf(entryname + entryname_length, length - entryname_length,
+					 "  %s", winname);
 			
 			ents[i].name=entryname;
 			ents[i].flags=0;
@@ -382,7 +383,7 @@ static bool wslist_menudata_init(WMenuData *data, WThing *context)
 		}
 		
 
-		sprintf(entryname, "ws %d", i+1);
+		snprintf(entryname, l, "ws %d", i+1);
 		
 		ents[i].name=entryname;
 		ents[i].flags=0;

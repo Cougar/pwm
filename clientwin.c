@@ -864,7 +864,7 @@ void clientwin_make_label(WClientWin *cwin, int maxw)
 	char tmp[16];
 
 	if(cwin->label_inst!=0)
-		sprintf(tmp, CLIENTNUM_TMPL, cwin->label_inst);
+		snprintf(tmp, sizeof(tmp), CLIENTNUM_TMPL, cwin->label_inst);
 	else
 		*tmp='\0';
 		
@@ -881,7 +881,7 @@ char *clientwin_full_label(WClientWin *cwin)
 	char tmp[16];
 	
 	if(cwin->label_inst!=0){
-		sprintf(tmp, CLIENTNUM_TMPL, cwin->label_inst);
+		snprintf(tmp, sizeof(tmp), CLIENTNUM_TMPL, cwin->label_inst);
 		return scat(str, tmp);
 	}else{
 		return scopy(str);

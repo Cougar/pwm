@@ -51,6 +51,7 @@ void wm_exec(const char *cmd)
 {
 	int pid;
 	char *tmp;
+	int tmp_len;
 
 	pid=fork();
 	
@@ -64,12 +65,13 @@ void wm_exec(const char *cmd)
 	
 	close(wglobal.conn);
 	
-	tmp=ALLOC_N(char, strlen(cmd)+8);
+	tmp_len = strlen(cmd)+8;
+	tmp=ALLOC_N(char, tmp_len);
 	
 	if(tmp==NULL)
 		die_err();
 	
-	sprintf(tmp, "exec %s", cmd);
+	snprintf(tmp, tmp_len, "exec %s", cmd);
 	
 	do_exec(tmp);
 }
@@ -79,17 +81,19 @@ void setup_environ(int scr)
 {
 	char *tmp, *ptr;
 	char *display;
+	int tmp_len;
 	
 	display=XDisplayName(wglobal.display);
 	
-	tmp=ALLOC_N(char, strlen(display)+16);
+	tmp_len = strlen(display)+16;
+	tmp=ALLOC_N(char, tmp_len);
 	
 	if(tmp==NULL){
 		warn_err();
 		return;
 	}
 	
-	sprintf(tmp, "DISPLAY=%s", display); 
+	snprintf(tmp, tmp_len, "DISPLAY=%s", display); 
 
 	ptr=strchr(tmp, ':');
 	if(ptr!=NULL){
@@ -98,8 +102,10 @@ void setup_environ(int scr)
 			*ptr='\0';
 	}
 
-	if(scr>=0)
-		sprintf(tmp+strlen(tmp), ".%i", scr);
+	if(scr>=0){
+		int curr_len=strlen(tmp);
+		snprintf(tmp+curr_len, tmp_len-curr_len, ".%i", scr);
+	}
 
 	putenv(tmp);
 	

@@ -1,4 +1,7 @@
 
+2003-06-17:
+  * Applied a patch to convert sprintf:s to snprintf:s.
+
 2003-05-28:
   * License model changed to Artistic/GPL dual license.
 

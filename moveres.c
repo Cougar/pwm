@@ -41,7 +41,7 @@ static XSizeHints dummy_size_hints={
 
 static void show_pos(int x, int y)
 {
-	sprintf(moveres_tmpstr, "%+d %+d", x, y);
+	snprintf(moveres_tmpstr, sizeof(moveres_tmpstr), "%+d %+d", x, y);
 	
 	draw_moveres(moveres_tmpstr);
 }
@@ -54,7 +54,7 @@ static void show_size(int w, int h, XSizeHints *hints)
 		h/=hints->height_inc;
 	}
 		
-	sprintf(moveres_tmpstr, "%dx%d", w, h);
+	snprintf(moveres_tmpstr, sizeof(moveres_tmpstr), "%dx%d", w, h);
 	
 	draw_moveres(moveres_tmpstr);
 }
