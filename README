@@ -1,0 +1,50 @@
+
+
+                                     PWM
+                 
+                   Copyright (c) Tuomo Valkonen 1999-2001.
+            
+                             <tuomov@cc.tut.fi>
+                  <http://www.students.tut.fi/~tuomov/pwm/>
+          
+          
+
+BUILDING AND INSTALLING
+
+You will need a C-compiler, gnu make :-(, BSD-compatible install and an
+editor.
+
+    1. Edit system.mk to suit your system. If heavy modifications
+       are required, you might want to save the file somewhere for
+       future use (and hope that I don't change the makefile-system...).
+    2. If you want to customize pwm above what is possible with
+       pwm.conf, edit config.h (this step is optional)
+    3. make depend && make. Note that 'make' here refers to gnu make
+       which is usually named 'gmake' on systems with their own version
+       of make.
+    4. make install (not required if you manually setup configuration
+       files).
+
+       If you are using gnome or whatever that creature is called,
+       there is also 'install-gnome' target that should install the
+       file PWM.desktop somewhere. This does not mean PWM is gnome
+       compliant. It isn't and will not be, at least not before
+       there is a common standard with KDE. Disclaimer: I am pretty
+       indifferent about these DE's and this desktop-file is just a
+       contribution I decided to include.
+
+
+NOTICE: PWM WILL NOT WORK WITHOUT A PROPER CONFIGURATION FILE!
+
+Without a configuration file no keys or mouse buttons will be bound to
+any actions and you will get a  black and white color scheme.
+Either personal ~/.pwm/pwm.conf or system-wide $(PREFIX)/etc/pwm/pwm.conf
+must exist unless another specified on the command line.
+$(PREFIX) is the path where you told to install PWM in the Makefile
+and the default setting is /usr/local.
+
+
+CONFIGURATION
+
+Have a look at config.txt and the default configuration files.
+

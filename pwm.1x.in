@@ -1,0 +1,194 @@
+.TH PWM 1
+.SH NAME
+pwm - an X11 window manager
+.SH SYNOPSIS
+.B pwm
+.I "[options]"
+.SH "DESCRIPTION"
+PWM is a rather lightweight window manager that can have multiple client
+windows attached to a single frame. This feature helps keeping windows,
+especially the numerous xterms, organized. 
+.SH "OPTIONS"
+.TP
+.B \-display host:display.screen
+X display to manage
+.TP
+.B \-cfgfile configfile
+Config file to use instead of default
+.TP
+.B \-onescreen
+On X servers with multiple screens, manage only default screen, not all.
+.TP
+.B \-help
+Show help on command line options
+.TP
+.B \-version
+Show version
+.TP
+.B \-about
+Show about text
+
+.SH KEYS
+
+These are the default keybindings.
+.B Mod1
+depends on your system. On PC:s with XFree86 it is probably bound to the left
+alt key (\fBAlt_L\fP).
+On Suns it is usually bound to the diamond keys (\fBMeta_L\fP, \fBMeta_R\fP). Use
+\fIxmodmap(1x)\fP to find out.
+
+.SS Global keys
+
+.TP
+.B Mod1+Tab
+Circulate through the list of windows
+.TP
+.B Mod1+Shift+Tab
+Backwards circulate through the list of windows
+.TP
+.B Mod1+n
+Go to workspace n, where n is 1-9 or 0.
+.TP
+.B Mod1+M
+"Root menu"
+.TP
+.B Mod1+G
+"Go to menu". Use this menu to select a window to activate.
+.TP
+.B Mod1+D
+"Detach menu". Use this menu to detach a window from a group
+on current workspace.
+.TP
+.B Mod1+T
+Toggle dock visibility
+.TP
+.B Mod1+E
+Run an xterm
+
+.SS Frame/window control keys
+
+These are the keys used to manipulate active frame and client window.
+They mostly use Control+Shift modifier.
+
+.TP
+.B Mod1+Enter
+Keyboard move/resize mode
+.TP
+.B Control+Shift+W
+Close window
+.TP
+.B Control+Shift+X
+Kill client owning active window
+.TP
+.B Control+Shift+S
+Toggle shading of frame
+.TP
+.B Control+Shift+Z
+Toggle stickiness of frame
+.TP
+.B Control+Shift+V
+(Un)maximize vertically
+.TP
+.B Control+Shift+H
+(Un)maximize horizontally
+.TP
+.B Control+Shift+M
+(Un)maximize both vertically and horizontally
+.TP
+.B Control+Shift+R
+Raise frame
+.TP
+.B Control+Shift+L
+Lower frame
+.TP
+.B Control+Shift+A
+"Attach menu". Use to attach window to the frame.
+.TP
+.B Control+Shift+O
+"Window menu"
+.TP
+.B Control+Shift+N
+Go to next window within frame
+.TP
+.B Control+Shift+P
+Go to previous window within frame
+.TP
+.B Control+Shift+n
+Goto n:th window within frame, where n is 1-9 or 0.
+
+.SS Menus
+
+These keys can be used in menus
+
+.TP
+.B Down or N
+Next entry
+.TP
+.B Up or P
+Previous entry
+.TP
+.B Right or Space
+Enter submenu
+.TP
+.B Left or B
+Leave submenu
+.TP
+.B Enter
+Execute activated entry
+.TP
+.B Esc
+Close menu
+.TP
+.B Z
+Set the menu in "keep mode"
+
+.SS Move/resize mode
+
+These keys can be used while in move/resize mode.
+
+.TP
+.B Escape
+Leave mode changes omitted.
+.TP
+.B Enter
+Leave mode applying changes.
+.TP
+.B Right/Left/Down/Up
+Move the frame to specific direction in bigger steps.
+.TP
+.B Mod1+Right/Left/Down/Up
+Shrink/grow the frame in specific direction in bigger steps.
+.TP
+.B Mod1+Right/Left/Down/Up
+Move the frame to specific direction by on pixel.
+.TP
+.B Mod1+Right/Left/Down/Up
+Shrink/grow the frame in specific direction by minimum amount
+requested by application.
+
+.SH FILES
+.TP
+.B /usr/local/etc/pwm/pwm.conf
+System default configuration file
+.TP
+.B /usr/local/etc/pwm/look-*.conf
+Color scheme configuration files
+.TP
+.B /usr/local/etc/pwm/keys-*.conf
+Key binding configuration files
+.TP
+.B /usr/local/etc/pwm/buttons-*.conf
+Pointer (mouse) button binding configuration files
+.TP
+.B ~/.pwm/pwm.conf
+User default configuration file (overrides system default)
+
+.SH SEE ALSO
+The PWM home page, http://www.students.tut.fi/~tuomov/pwm/
+.PP
+.BR PREFIX/doc/pwm/config.txt
+.PP
+.BR X (1x)
+.SH AUTHOR
+PWM was written by Tuomo Valkonen <tuomov@cc.tut.fi> with ideas and
+complaints from various people.

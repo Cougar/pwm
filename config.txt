@@ -1,0 +1,291 @@
+
+
+This file is meant as a reference to configuring pwm, not as a beginning
+users' manual.
+
+
+CONTENTS:
+
+	1. Options
+	2. Functions
+	3. Built-in menus
+
+
+1. OPTIONS
+
+
+Defining a menu:
+
+	menu "name", "title" {
+	
+		# For menus that require a window to operate on, set
+		# contextual
+		[contextual]
+
+		entry "name", "function" [, arg]
+	
+		submenu "submenu name"
+	}
+
+
+Binding keys:
+
+
+	# Set default modifier used for all bindings from this point on
+	# Known modifiers: Shift, Lock, Control, Mod<1-5>
+	set_mod "Modifiers"
+
+	# Bind a key globally:
+	kbind "[modifiers+]key", "function" [, arg]
+
+	# Bind a key for menu navigation:
+	kbind_menu "[modifiers+]key", "function" [, arg]
+
+	# Bind a key for moving/resizing in moveres mode:
+	kbind_moveres "[modifiers+]key", "function" [, arg]
+
+
+Binding pointer buttons:
+
+	mbind {
+		# Context this binding applies to.
+		# Known contexes: root, tab, corner, side, window,
+		# dockwin, button
+		context context1, context2, etc.
+
+		# Which button?
+		state Button<1-5>
+
+		# Action on button press
+		press "func" [, arg]
+
+		# Action on button click
+		click "func" [, arg]
+
+		# Action on double click
+		press "func" [, arg]
+
+		# Action on pointer motion (drag)
+		motion "func" [, arg]
+	}
+
+
+Configuring screens:
+
+	# On single-head configurations the only screen should be 0
+	screen <screennum> {
+		# Default (title) font
+		font "fontname"
+
+		# Menu entry font
+		menu_font "fontname"
+
+		# border width: total width of frame border
+		# bevel width: 3d-bevel width
+		border_w <border width>, <bevel width>
+
+		# min width: minimum width of (title)bar in pixels
+		# max width q: maximum bar width divided by frame width
+		# tab min width: minimum width of a single tab
+		bar_w <min width>, <max width q>, <tab min width>
+
+		# Color groups names:
+		#
+		#   act_tab_sel_colors: Active frame/selected tab
+		#   act_tab_colors: Active frame/tab
+		#   act_base_colors: Active frame or menu
+		#   act_sel_colors: Active menu/selected item
+		#
+		#   tab_sel_colors: Inactive frame/selected tab
+		#   tab_colors: Inactive frame/tab
+		#   base_colors: Inactive frame or menu
+		#   sel_colors: Inactive menu/selected item
+		#
+		# The colors (highlight, shadow, background, foreground)
+		# are normal X color specifications. See the manual page
+		# XParserColor(3x) for more.
+		# 
+		<color_group_name> "highlight", "shadow", "background", \
+				   "foreground"
+
+		# Specify (optional) tile image to use as dock background.
+		# (xloadimage required for this kludge to work).
+		dock_tile "tile_image"
+
+		# Set number of workspaces
+		workspaces <horizontal> [, <vertical>]
+
+		# Set dock position and options
+		# Position is std. X geometry specification and option
+		# is one of the following: horizontal, hidden.
+		dock "position" [, option1, option2, etc.]
+
+		# Set opaque move percent (i.e. windows that take less than
+		# this percentage of screen space are moved opaquely).
+		# Default is 100 - all moves are opaque.
+		opaque_move <percentage>
+	}
+
+
+Window properties:
+
+	# Initial settings for window "class.instance"
+	# (e.g. Netscape.Navigator, FooApp.*)
+
+	winprop "class.instance" {
+
+		# The frame to initially place this window in. Numbers in
+		# range [1, 255] ca be used. 0 is default, create
+		# new frame. The property _PWM_FRAME_ID overrides this setting.
+		frame <frame_id>
+
+		# Initial workspace for this window. 0 is the first workspace,
+		# -1 current and -2 sticky. This setting is overridden by
+		# the property _PWM_WORKSPACE_NUM.
+		workspace <ws>
+
+		# Position of a dockapp on the dock.
+		# Please note that the WM_CLASS property of the hidden main
+		# window is used, not the visible (docked) icon's.
+		dockpos <pos>
+
+		# Wildmode (no borders, allow the app to move the window).
+		# app = use mwm hints (default), yes = force wildmode,
+		# no = force normal mode (ignore mwm hints).
+		wildmode <mode>
+	}
+
+
+Misc. options:
+
+	# Set double click delay in milliseconds (default: 250)
+	dblclick_delay <msec>
+
+
+
+2. FUNCTIONS
+
+
+Contexes Function		Args		Description
+---------------------------------------------------------------------------
+frame	toggle_shade		-		Toggle shade mode
+	toggle_stick		-		Toggle stickyness
+	toggle_decor		-		Toggle borders and title
+						on/off
+	toggle_maximize		1|2|3		Toggle maximization of the
+						frame:
+						  1 - vertical
+						  2 - horizontal
+						  3 - both
+	switch_nth		x		Switch to x:th client
+						window within this frame.
+	switch_rot		[-]x		Switch to x:th next/prev
+						client window within this
+						frame.
+	set_stack_lvl		lvl		Set stacking level:
+						  0 - keep on bottom
+						  1 - normal
+						  2 - keep on top
+	attach_tagged		-		Attach tagged windows
+						to this frame.
+---------------------------------------------------------------------------
+frame   raise			-
+menu 	lower			-
+	kb_moveres		-		Go to keyboard move/resize
+						mode.
+	move_to_ws		x		Move object to workspace
+						number x.
+	pack_move		<flag>		Move frame left/right/up/
+						down until screen border
+						or other window.
+						(See kb_* below for flags).
+	gotodir			<flag>		Go to frame left/right/up/
+						down from current.
+						(See kb_* below for flags).
+---------------------------------------------------------------------------
+window  close			-
+	kill			-
+	toggle_tagged		-
+---------------------------------------------------------------------------
+global	circulate		[-]n		Select n:th next/prev
+						frame/menu.
+	circulateraise		[-]n		circulate+raise
+	switch_ws_num		n		Go to workspace n
+	switch_ws_hrot		[-]n		Rotate n workspaces
+						horizontally.
+	switch_ws_vrot		[-]n		Rotate n workspaces
+						vertically.
+	join_tagged		-		Join tagged windows
+						in a new frame.
+	goto_frame		id		Go to frame <id>
+	toggle_dock		-		Hide/Show dock.
+	toggle_dock_dir		-		Toggle dock orientation
+						between vertical and
+						horizontal.
+	menu			"name"		Show menu named "name".
+	exec			"cmdline"	Run a program.
+	exit			-		Exit PWM.
+	restart			-		Restart PWM.
+	restart_other		"cmdline"	Restart other window
+						manager.
+	goto_previous				Go to previously active
+						frame or menu.
+---------------------------------------------------------------------------
+*** These functions should only be used in kbind_menu!
+menu	menu_next		-		Next entry
+	menu_prev		-		Previous entry
+	menu_entersub		-		Enter submenu
+	menu_leavesub		-		Go back to parent menu
+	menu_close		-		Close menu
+	menu_keep		-		Do not close menu
+						when executing action
+						bound to an entry.
+	menu_raisekeep		-		menu_keep+raise (internal)
+	menu_execute		-		Execute action bound
+						to current entry or
+						enter submenu.
+---------------------------------------------------------------------------
+*** These functions should only be used in kbind_moveres!
+moveres	kb_moveres_end		-		Leave moveres mode
+ mode	kb_moveres_cancel	-		Leave moveres mode and
+						discard changes.
+	kb_move			<flags>		Move
+	kb_move_stepped		<flags>		Move in larger steps.
+	kb_resize		<flags>		Resize
+	kb_resize_stepped	<flags>		Resize in larger steps
+						Flags is a bitwise OR
+						of these values:
+						  0x01 - right
+						  0x02 - left
+						  0x10 - bottom
+						  0x20 - top
+						  0x04 - decrement width
+						  0x40 - decrement height
+
+---------------------------------------------------------------------------
+*** These functions should only be used in pointer/button actions!
+frame/motion	move		-
+frame/motion 	resize		-
+frame/motion	move_stepped	-		Move in larger steps
+frame/motion	resize_stepped	-		Resize in larger steps
+
+tab/motion	tab_drag	-		Start dragging a tab.
+tab		tab_switch	-		Switch to the client window
+						whose tab this is.
+---------------------------------------------------------------------------
+
+
+
+3. BUILT-IN MENUS
+
+
+There are three builtin window list menus:
+
+	goto_menu 	Go to selected window
+
+	detach_menu	Move selected window to current workspace possibly
+			in a new frame
+
+	attach_menu	(contextual) Attach selected window in current frame
+
+	

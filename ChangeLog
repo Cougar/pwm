@@ -1,0 +1,219 @@
+
+2001-03-09:
+  * Allow windows to move themselves
+
+2001-02-18:
+  * Phantom dockapp fix
+
+2001-01-10:
+  * "dock" configuration option changes: "hidden" option, direction
+    1/0 replaced with "vertical" option.
+
+2000-12-31:
+  * Added 'gotodir' function (move to frame in given direction).
+
+2000-12-28:
+  * Makefile/path setting changes
+
+2000-12-20:
+  * Built-in 'ws_menu' and 'movetows_menu'.
+  * Added keybindings to the man page.
+  * Added 'PWM manual' entry in the default root menu.
+
+2000-12-18:
+  * Don't kill client on close if it does not support
+    WM_DELETE_WINDOW.
+
+2000-12-16:
+  * Titles were not drawn correctly when toggling decorations on if a
+    window was closed when the associated frame was in undecorated
+    state.
+
+2000-11-10:
+  * Don't change active window visual indication when displaying a
+    'contextual menu'.
+
+2000-11-04:
+  * Added 'goto_previous'.
+
+2000-11-02:
+  * Windows with same name are numbered now
+
+2000-10-18:
+  * Added pack_move
+  * Changed the order to which window in a frame to go when the
+    current is destroyed
+  * Added "detach" function
+  * Added attach/detach to window menu
+
+2000-08-30:
+  * Added WM_COLORMAP_WINDOWS support
+
+2000-07-01:
+  * Added goto_frame <id>
+  * Few portability issues fixed (hp-ux/gcc)
+  * config.txt is installed in $PREFIX/doc/pwm
+  * copy LICENSE in $PREFIX/doc/pwm
+  * Release 1.0
+
+2000-06-28:
+  * Minor fixes
+
+2000-06-26:
+  * malloc fixes
+
+2000-06-21:
+  * Fixed problem with windows that have their WM_TRANSIENT_FOR
+    property set to point to themselves
+  * Added 'raiselower'
+
+2000-06-18:
+  * Focus handling fixes
+
+2000-06-17:
+  * Missing #include <string.h> (in property.c) was causing problems
+    on some systems.
+
+2000-06-16:
+  * Selected windows are denoted in window lists
+  * Updates in config.txt
+
+2000-06-15:
+  * Added detach_menu (Mod1+D) and attach_menu (Control+Shift+A)
+  * Renamed winlist_menu to goto_menu (Mod1+G)
+  * Removed window tagging/joining from default confs (functionality
+    replaced by attach_menu and detach_menu)
+
+2000-06-13:
+  * Winlist is sorted by the order of the windows in frames now
+    (instead of qsort by names)
+  * Renamed 'toggle_selected' to 'toggle_tagged'
+  * Gravity handling should be a bit better now
+
+2000-06-12:
+  * Default colormap will be set when a menu receives the focus
+  * Signal handling/exec/timer cleanup
+  * Color scheme configuration changes: (act_)sel_tab_colors ->
+    (act_)tab_sel_colors, (act_)frame_colors -> (act_)base_colors.
+    Added (act_)sel_colors for selected menu item.
+
+2000-06-08:
+  * Fixed (well, at least I hope so) background drawing problem with
+    CF_WANT_TRANSPARENT_TERMS
+  * Fixed a problem with Tk apps' menus
+  * Added 'install-gnome' target. See the README for disclaimer and
+    such.
+
+2000-06-07:
+  * If window title is too long and should be truncated, and it
+    contains a colon, the text before the colon is left out
+
+2000-06-05:
+  * Exit/restart handling for multiple screen configurations
+
+2000-06-03:
+  * The selected entry is moved visible when navigating menus from
+    the keyboard as well
+  * $PREFIX/etc/pwm is now searched for config file includes
+  * Config file locations: changed system default to
+    $PREFIX/etc/pwm/pwm.conf (was $PREFIX/etc/pwm.conf) and user
+    default to ~/.pwm/pwm.conf (was ~/.pwm.conf).
+  * Changes in default key bindings.
+  * Don't set background color for window frames so all those
+    'transparent term' -kludges will work
+  * New default look.conf
+
+2000-05-30:
+  * Fixed potential segfault caused by missing/broken WM_CLASS
+
+2000-05-25:
+  * Some (child) programs could get upset because SIGPIPE was ignored
+    (SIG_IGN). Fixed that.
+
+2000-05-23:
+  * (Portability) fix: handle SIGCHLD and waitpid() for children to
+    avoid zombies
+
+2000-05-21:
+  * Modified to use new libtu optparser/generated --help
+
+2000-05-20:
+  * Finally, a man page
+  * Order of dockapps in dock can be configured
+  * "wildmode" can be configured in the config file
+  * Removed dock background tile kludge
+
+2000-05-19:
+  * Initial settings for workspace and frame ID can be configured on
+    per window class/instance basis.
+  * Brought the README up-to-date.
+
+2000-05-17:
+  * Inlineable submenu configuration
+
+2000-05-14:
+  * Menus that are partially outside visible screen can now be
+    scrolled visible
+
+2000-05-13:
+  * Transients will now follow their parents between workspaces
+
+2000-04-23:
+  * Attempt to lower lowest stacked transient will cause the parent
+    be lowered.
+
+2000-04-22:
+  * Portability fixes
+
+2000-04-19:
+  * Changed lower-behavior for transient windows
+  * New Makefile system for including libtu in the same package
+
+2000-04-10:
+  * Added circulateraise
+
+2000-04-06:
+  * Fixed problem with menus not being always redrawn
+
+2000-04-03:
+  * Cleanup and minor fixes
+  * Better placement routines [Timo Pylvänäinen <pylvanat@cc.tut.fi>]
+
+2000-04-01:
+  * "Wild windows": clients that request no decoration via MWM
+    decoration hints are also permitted to move the window.
+
+2000-03-23:
+  * Preliminary MWM decoration hints support
+  * Window destroy event could be missed if it happened while
+    starting to manage it. Fixed that.
+
+2000-03-12:
+  * Automatically focus first winobj when switching workspace
+  * Changed sticky-bit to sticky workspace -- sticky information now
+    gets saved over restarts
+  * Other fixes
+
+2000-02-28:
+  * Menu fixes
+  * Window list menu
+
+2000-02-25:
+  * Changes and cleanup in frame/clientwin size handling; allow
+    shrinking of frame to the extent that all other windows fit
+    without resizing.
+  * Fixed menu_command(MENU_CMD_LEAVESUB) focus handling
+
+2000-02-23:
+  * Use libtu's error tolerant config file parsing mode
+  * Fixed grab_bindings to not grab buttons that have no modifiers
+    set
+  * Changes in workspace code
+
+2000-02-21:
+  * New windows now automatically get focus if there is no active
+    window or the window is a transient for the active window.
+
+2000-02-19:
+  * New sample configuration files that take use of libtu include
+    feature I just added

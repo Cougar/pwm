@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=PWM
+Name[tr]=PWM
+Exec=pwm
+TryExec=pwm
+
+[Window Manager]
+SessionManaged=false

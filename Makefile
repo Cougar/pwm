@@ -1,0 +1,69 @@
+##
+## PWM Makefile
+##
+
+# System-specific configuration is in system.mk
+include system.mk
+
+######################################
+
+SUBDIRS=libtu
+LIBS += -L./libtu -ltu -lm $(X11_LIBS) -lX11
+INCLUDES += -I./libtu/include $(X11_INCLUDES)
+DEFINES += -DETCDIR=\"$(ETCDIR)\"
+CFLAGS += $(XOPEN_SOURCE)
+TO_REALCLEAN += pwm.1x
+
+OBJS=	main.o draw.o font.o frame.o event.o clientwin.o thing.o \
+	property.o pointer.o key.o moveres.o cursor.o function.o \
+	exec.o focus.o workspace.o winobj.o screen.o menu.o \
+	readconfig.o menudata.o dock.o frameid.o placement.o \
+	binding.o winlist.o mwmhints.o signal.o winprops.o
+
+TARGETS=pwm
+
+######################################
+
+include rules.mk
+
+######################################
+
+pwm: $(OBJS) pwm.1x
+	$(CC) $(OBJS) $(LDFLAGS) -o $@
+
+pwm.1x: pwm.1x.in
+	sed 's#PREFIX#$(PREFIX)#g' pwm.1x.in > pwm.1x
+
+_install:
+	$(INSTALLDIR) $(BINDIR)
+	$(INSTALL) -m $(BIN_MODE) pwm $(BINDIR)
+	$(STRIP) $(BINDIR)/pwm
+
+	$(INSTALLDIR) $(MANDIR)/man1
+	$(INSTALL) -m $(DATA_MODE) pwm.1x $(MANDIR)/man1
+
+	$(INSTALLDIR) $(DOCDIR)
+	$(INSTALLDIR) $(DOCDIR)/pwm
+	$(INSTALL) -m $(DATA_MODE) config.txt $(DOCDIR)/pwm
+	$(INSTALL) -m $(DATA_MODE) LICENSE $(DOCDIR)/pwm
+
+	$(INSTALLDIR) $(ETCDIR)
+	$(INSTALLDIR) $(ETCDIR)/pwm
+	for i in etc/pwm/*.conf; do \
+		$(INSTALL) -m $(DATA_MODE) $$i $(ETCDIR)/pwm; \
+	done
+	@ if test -f $(ETCDIR)/pwm/pwm.conf ; then \
+		echo "$(ETCDIR)/pwm/pwm.conf already exists. Not installing one."; \
+	else \
+		echo "Installing sample configuration file $(ETCDIR)/pwm/pwm.conf"; \
+		$(INSTALL) -m $(DATA_MODE) etc/pwm/sample.conf $(ETCDIR)/pwm/pwm.conf; \
+	fi
+
+
+# Disclaimer: I don't have either Gnome or KDE.
+
+install-gnomede: support/PWM.desktop
+	$(INSTALL) -m $(DATA_MODE) support/PWM.desktop \
+	`gnome-config --datadir`/gnome/wm-properties
+
+install-gnome: install install-gnomede
