@@ -1,13 +1,12 @@
 
 
-                                     PWM
-                 
-                   Copyright (c) Tuomo Valkonen 1999-2001.
-            
-                             <tuomov@cc.tut.fi>
-                  <http://www.students.tut.fi/~tuomov/pwm/>
-          
-          
+PWM
+
+Copyright (c) Tuomo Valkonen 1999-2001.
+<tuomov at iki.fi>
+
+<http://iki.fi/tuomov/pwm/>
+
 
 BUILDING AND INSTALLING
 
@@ -47,4 +46,11 @@ and the default setting is /usr/local.
 CONFIGURATION
 
 Have a look at config.txt and the default configuration files.
+
+
+COPYING
+
+You may distribute and modify this program under the terms of either
+the Clarified Artistic License or the GNU GPL version 2 or later, both
+reproduced in the file LICENSE.
 

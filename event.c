@@ -2,7 +2,9 @@
  * pwm/event.c
  *
  * Copyright (c) Tuomo Valkonen 1999-2001. 
- * See the included file LICENSE for details.
+ *
+ * You may distribute and modify this program under the terms of either
+ * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
 #include <stdlib.h>
@@ -303,6 +305,18 @@ static void handle_configure_request(XConfigureRequestEvent *ev)
 }
 	   
 
+/* autoraise */
+
+static void autoraise_handler()
+{
+	if(wglobal.current_winobj==NULL)
+		return;
+	raise_winobj(wglobal.current_winobj);
+}
+
+
+/* */
+
 static void handle_enter_window(XEvent *ev)
 {
 	XEnterWindowEvent *eev=&(ev->xcrossing);
@@ -331,10 +345,11 @@ static void handle_enter_window(XEvent *ev)
 #endif
 	
 	if(eev->window==eev->root){
-		if(!eev->same_screen)
-			thing=(WThing*)wglobal.current_winobj;
-		else
+		/*if(eev->same_screen)
+			return;*/
+		if(eev->mode==NotifyInferior || wglobal.current_winobj==NULL)
 			return;
+		thing=(WThing*)wglobal.current_winobj;
 	}else{
 		thing=find_thing(eev->window);
 
@@ -348,6 +363,9 @@ static void handle_enter_window(XEvent *ev)
 	}
 	
 	do_set_focus(thing);
+#if 0
+	set_timer(1000, autoraise_handler);
+#endif
 }
 
 
@@ -356,7 +374,7 @@ static void handle_unmap_notify(const XUnmapEvent *ev)
 	WThing *thing;
 
 	/* We are not interested in SubstructureNotify -unmaps. */
-	if(ev->event!=ev->window)
+	if(ev->event!=ev->window && ev->send_event!=True)
 		return;
 
 	thing=find_thing(ev->window);

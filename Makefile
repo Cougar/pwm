@@ -3,7 +3,7 @@
 ##
 
 # System-specific configuration is in system.mk
-include system.mk
+include system-inc.mk
 
 ######################################
 

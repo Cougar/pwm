@@ -1,0 +1,29 @@
+
+libtu
+
+Copyright (c) Tuomo Valkonen 1999-2003.
+<tuomov at iki.fi>
+
+
+Libtu is a small utility library for programs written in C. You may
+distribute and modify it under the terms of either the Clarified
+Artistic License or the GNU LGPL, version 2.1 or later, both reproduced
+in the file LICENSE.
+
+To build the library, first edit system.mk to customize it for your
+system if necessary. Then 'make depend && make'.
+To install it run 'make install' (perhaps as root depending on
+where you are installing it).
+
+If you want to use it in your programs, you may try to figure out how
+by reading the header files (include/*.h) and test programs (tester*.c).
+Or you could try urging me to write some sort of a manual.
+
+---
+
+Libtu needs the functions asprintf and vasprintf. These do not
+exist on most platforms. One implementation by Mark Martinec
+is included in snprintf_2.2/ and is used by default. To use the
+system's versions of these functions, if available, modify
+system.mk.
+

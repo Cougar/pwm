@@ -184,11 +184,11 @@ Pointer (mouse) button binding configuration files
 User default configuration file (overrides system default)
 
 .SH SEE ALSO
-The PWM home page, http://www.students.tut.fi/~tuomov/pwm/
+The PWM home page, http://iki.fi/tuomov/pwm/
 .PP
 .BR PREFIX/doc/pwm/config.txt
 .PP
 .BR X (1x)
 .SH AUTHOR
-PWM was written by Tuomo Valkonen <tuomov@cc.tut.fi> with ideas and
+PWM was written by Tuomo Valkonen <tuomov at iki.fi> with ideas and
 complaints from various people.

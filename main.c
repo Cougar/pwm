@@ -2,7 +2,9 @@
  * pwm/main.c
  *
  * Copyright (c) Tuomo Valkonen 1999-2001. 
- * See the included file LICENSE for details.
+ *
+ * You may distribute and modify this program under the terms of either
+ * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
 #include <stdlib.h>
@@ -58,7 +60,7 @@ static const char wm_usage_tmpl[]=
 static const char wm_about[]=
 	"PWM " PWM_VERSION ", copyright (c) Tuomo Valkonen 1999-2001.\n"
 	"This program may be copied and modified under the terms of the "
-	"Artistic License.\n";
+	"Artistic License or the GNU GPL.\n";
 
 
 static OptParserCommonInfo wm_cinfo={

@@ -2,7 +2,9 @@
  * pwm/font.c
  *
  * Copyright (c) Tuomo Valkonen 1999-2001. 
- * See the included file LICENSE for details.
+ *
+ * You may distribute and modify this program under the terms of either
+ * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
 #include <libtu/output.h>
@@ -89,10 +91,12 @@ char *make_label(XFontStruct *fnt, const char *str, const char *trailer,
 
 	dw=XTextWidth(fnt, dots, 3);
 	
-	while(--len){
-		w=XTextWidth(fnt, str, len);
-		if(tw+w+dw<=maxw)
-			break;
+	if(len>0){
+		while(--len){
+			w=XTextWidth(fnt, str, len);
+			if(tw+w+dw<=maxw)
+				break;
+		}
 	}
 	
 	if(wret!=NULL)

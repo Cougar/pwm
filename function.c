@@ -2,8 +2,12 @@
  * pwm/function.c
  *
  * Copyright (c) Tuomo Valkonen 1999-2001. 
- * See the included file LICENSE for details.
+ *
+ * You may distribute and modify this program under the terms of either
+ * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
+
+#include <string.h>
 
 #include "common.h"
 #include "function.h"
@@ -41,6 +45,7 @@ extern WMotionHandler drag_handler;
 
 static void wrap_switch_clientwin(WClientWin *cwin);
 static void wrap_set_stack_lvl(WFrame *frame, int lvl);
+static void tab_switch_and_raise(WClientWin *cwin);
 
 
 /* */
@@ -174,6 +179,7 @@ static WFunction funcs[]={
 	FNI(drag,		"resize_stepped",	DRAG_RESIZE_STEPPED),
 	FNI(drag,		"tab_drag", 		DRAG_TAB),
 	FN(cwin,		"tab_switch",		wrap_switch_clientwin),
+ 	FN(cwin,		"tab_switch_and_raise",	tab_switch_and_raise),
 
 #ifdef CF_PACK_MOVE
 	FN(winobj_i,    "pack_move",        pack_move),
@@ -420,8 +426,16 @@ static void cwin_handler(WThing *thing, WFunction *func, WFuncArg arg)
 static void wrap_switch_clientwin(WClientWin *cwin)
 {
 	frame_switch_clientwin(CWIN_FRAME(cwin), cwin);
-        if (!WFRAME_IS_SHADE(CWIN_FRAME(cwin)))
+	
+	if(!WFRAME_IS_SHADE(CWIN_FRAME(cwin)))
 		set_frame_state(CWIN_FRAME(cwin), 0);
+}
+
+
+static void tab_switch_and_raise(WClientWin *cwin)
+{
+	wrap_switch_clientwin(cwin);
+	raise_winobj((WWinObj*)CWIN_FRAME(cwin));
 }
 
 

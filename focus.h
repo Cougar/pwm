@@ -2,7 +2,9 @@
  * pwm/focus.h
  *
  * Copyright (c) Tuomo Valkonen 1999-2001. 
- * See the included file LICENSE for details.
+ *
+ * You may distribute and modify this program under the terms of either
+ * the Clarified Artistic License or the GNU GPL, version 2 or later.
  */
 
 #ifndef INCLUDED_FOCUS_H

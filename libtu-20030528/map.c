@@ -1,0 +1,32 @@
+/*
+ * libtu/map.c
+ *
+ * Copyright (c) Tuomo Valkonen 1999-2002. 
+ *
+ * You may distribute and modify this library under the terms of either
+ * the Clarified Artistic License or the GNU LGPL, version 2.1 or later.
+ */
+
+#include <string.h>
+#include <libtu/map.h>
+
+
+int stringintmap_ndx(const StringIntMap *map, const char *str)
+{
+    int i;
+	
+	for(i=0; map[i].string!=NULL; i++){
+		if(strcmp(str, map[i].string)==0)
+			return i;
+	}
+	
+	return -1;
+}
+
+
+int stringintmap_value(const StringIntMap *map, const char *str, int dflt)
+{
+    int i=stringintmap_ndx(map, str);
+	return (i==-1 ? dflt : map[i].value); 
+}
+

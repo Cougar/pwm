@@ -1,4 +1,19 @@
 
+2003-05-28:
+  * License model changed to Artistic/GPL dual license.
+
+2002-05-31:
+  * Fixed lockup when a window's title ends in its only colon (and
+    spaces) but even just the three dots and instance number are too
+    long to fit in the tab.
+
+2001-11-11:
+  * Applied an (old) tab_switch_and_raise patch.
+  * Some #includes added.
+
+2001-10-20:
+  * Phantom-window fix.
+
 2001-03-09:
   * Allow windows to move themselves
 
@@ -54,7 +69,6 @@
   * Few portability issues fixed (hp-ux/gcc)
   * config.txt is installed in $PREFIX/doc/pwm
   * copy LICENSE in $PREFIX/doc/pwm
-  * Release 1.0
 
 2000-06-28:
   * Minor fixes
