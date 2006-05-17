@@ -40,20 +40,23 @@ void destroy_subthings(WThing *parent)
 {
 	WThing *t, *prev=NULL;
 
-	assert(!(parent->flags&WTHING_SUBDEST));
-	parent->flags|=WTHING_SUBDEST;
+	/* assert(!(parent->flags&WTHING_SUBDEST)); */
+    if (parent->flags & WTHING_SUBDEST) {
+        fprintf(stderr, __FILE__ ": %d: destroy_subthings: "
+            "parent->flags & WTHING_SUBDEST\n", __LINE__);
+        /* Do nothing - we're in some weird trouble here. */
+    } else {
+        parent->flags |= WTHING_SUBDEST;
 	
 	/* destroy children */
-	while(1){
-		t=parent->t_children;
-		if(t==NULL)
-			break;
+        while ((t = parent->t_children) != NULL) {
 		assert(t!=prev);
 		prev=t;
 		destroy_thing(t);
 	}
 	
 	parent->flags&=~WTHING_SUBDEST;
+    }
 }
 
 

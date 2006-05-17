@@ -1,4 +1,7 @@
 
+2006-05-17:
+  * Applied a crash patch to thing.c by Ben Stern.
+
 2003-06-17:
   * Applied a patch to convert sprintf:s to snprintf:s.
 
