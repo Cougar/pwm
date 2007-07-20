@@ -1,4 +1,10 @@
 
+2007-07-20:
+  * 'make clean' fix
+
+2007-07-20:
+  * Applied a window positioning patch by Juha-Matti Tilli.
+
 2006-05-17:
   * Applied a crash patch to thing.c by Ben Stern.
 

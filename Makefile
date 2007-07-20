@@ -13,6 +13,7 @@ INCLUDES += -I./libtu/include $(X11_INCLUDES)
 DEFINES += -DETCDIR=\"$(ETCDIR)\"
 CFLAGS += $(XOPEN_SOURCE)
 TO_REALCLEAN += pwm.1x
+TO_CLEAN += $(OBJS)
 
 OBJS=	main.o draw.o font.o frame.o event.o clientwin.o thing.o \
 	property.o pointer.o key.o moveres.o cursor.o function.o \
