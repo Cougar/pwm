@@ -1,7 +1,7 @@
 /*
  * pwm/clientwin.c
  *
- * Copyright (c) Tuomo Valkonen 1999-2001. 
+ * Copyright (c) Tuomo Valkonen 1999-2007.
  *
  * You may distribute and modify this program under the terms of either
  * the Clarified Artistic License or the GNU GPL, version 2 or later.
@@ -401,7 +401,7 @@ static bool add_clientwin(WClientWin *cwin, XWindowAttributes *attr,
 	
 	if(frame==NULL){
 		if((attr->x!=0 || attr->y!=0 ||
-			cwin->size_hints.win_gravity!=ForgetGravity)
+			(cwin->size_hints.flags & (USPosition | PPosition))!=0)
 #ifdef CF_IGNORE_NONTRANSIENT_LOCATION
 		   && cwin->transient_for!=None
 #endif
