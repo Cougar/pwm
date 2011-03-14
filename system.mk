@@ -7,7 +7,7 @@
 ## Installation paths
 ##
 
-PREFIX=/usr/local
+PREFIX=/usr
 
 # No need to modify these usually
 BINDIR=$(PREFIX)/bin
