@@ -282,6 +282,8 @@ bool preinit_screen(int xscr)
 	grdata->bar_min_width=10;
 	grdata->bar_max_width_q=0.95;
 	grdata->tab_min_width=10;
+
+	grdata->autoraise_time=-1;
 	
 	return TRUE;
 }

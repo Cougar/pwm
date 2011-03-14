@@ -14,6 +14,9 @@
 2003-05-28:
   * License model changed to Artistic/GPL dual license.
 
+2002-12-10:
+  * Autoraise support by Cougar <cougar@random.ee>
+
 2002-05-31:
   * Fixed lockup when a window's title ends in its only colon (and
     spaces) but even just the three dots and instance number are too
